@@ -319,7 +319,7 @@ $btnOK.Add_Click({
 		$jsnumber = $global:comboUniques[$i].SelectedItem
 
 		switch ($global:comboNormales[$i].SelectedItem) {	
-			"Constellation ALPHA" { $csv = ".\Mapping\MConst_alpha.csv" }
+			"Constellation ALPHA" { $csv = ".\Mapping\Const_alpha.csv" }
 			"Constellation ALPHA Prime" { $csv = ".\Mapping\Const_alpha_prime.csv" }
 			"CDT Aero Grip"  { $csv = ".\Mapping\cdt-aero.csv" }
 			"WarBRD Grip"  { $csv = ".\Mapping\Warbrd-grip.csv" }
