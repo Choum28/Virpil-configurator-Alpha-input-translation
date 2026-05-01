@@ -23,6 +23,7 @@
 	or powershell.exe -ep bypass -file "x:\xxx\virpil_sc_conversion.ps1" from a cmd terminal.
 
         Launch the script
+	1.3		01.01.2025	Change to support new csv version/path. 
 	1.2		21.02.2025	Add Gui, add more device support
     1.1     20.02.2025  Add choice selection
 						Add user selection for js devic number use by the device in star citizen
@@ -318,31 +319,35 @@ $btnOK.Add_Click({
 		$jsnumber = $global:comboUniques[$i].SelectedItem
 
 		switch ($global:comboNormales[$i].SelectedItem) {	
-			"Constellation ALPHA" { $csv = "Const_alpha.csv" }
-			"Constellation ALPHA Prime" { $csv = "Const_alpha_prime.csv" }
-			"CDT Aero Grip"  { $csv = "cdt-aero.csv" }
-			"WarBRD Grip"  { $csv = "Warbrd-grip.csv" }
-			"MongoosT-50CM2/3 1 mode" { $csv = "ThrottleCM2-3.csv"}
-			"MongoosT-50CM2/3 5 mode selection" { $csv = "ThrottleCM2-3_5m.csv"}
-			"MongoosT-50CM2/3 5 mode + Control panel 2 (slave)" { $csv = "ThrottleCM2-3_5m_SlaveCP2.csv" }
-			"VMAX Prime Throttle 1 mode" { $csv = "VMAX Prime Throttle.csv" }
-			"VMAX Prime Throttle 5 mode" { $csv = "VMAX Prime Throttle-5m.csv" }
-			"Control Panel 1" { $csv = "CP1.csv" }
-			"Control Panel 2" { $csv = "CP2.csv" }
+			"Constellation ALPHA" { $csv = ".\Mapping\MConst_alpha.csv" }
+			"Constellation ALPHA Prime" { $csv = ".\Mapping\Const_alpha_prime.csv" }
+			"CDT Aero Grip"  { $csv = ".\Mapping\cdt-aero.csv" }
+			"WarBRD Grip"  { $csv = ".\Mapping\Warbrd-grip.csv" }
+			"MongoosT-50CM2/3 1 mode" { $csv = ".\Mapping\ThrottleCM2-3.csv"}
+			"MongoosT-50CM2/3 5 mode selection" { $csv = ".\Mapping\ThrottleCM2-3_5m.csv"}
+			"MongoosT-50CM2/3 5 mode + Control panel 2 (slave)" { $csv = ".\Mapping\ThrottleCM2-3_5m_SlaveCP2.csv" }
+			"VMAX Prime Throttle 1 mode" { $csv = ".\Mapping\VMAX Prime Throttle.csv" }
+			"VMAX Prime Throttle 5 mode" { $csv = ".\Mapping\VMAX Prime Throttle-5m.csv" }
+			"Control Panel 1" { $csv = ".\Mapping\CP1.csv" }
+			"Control Panel 2" { $csv = ".\Mapping\CP2.csv" }
 		}
-		$device+=add-Device -csv $csv -jsNumber $jsnumber
+		$device+=add-Device -csv $csv -jsNumber $jsnumber -Type $Type
 	}
 	foreach ($virpil in $device) {
 		$mapping += Import-Csv -Path $virpil.csv | ForEach-Object {
 			foreach ($line in $_.PSObject.Properties) {
-				$prefix = $virpil.jsNumber + '_'
-				$line.Value = "$prefix$($line.Value)"
+					# test si la valeur du csv est un chiffre (bouton) ou un axe.
+					if ($line.Value -match '^\d+$'){
+						$line.Value = ($virpil.jsNumber + '_button' + $line.Value)
+					} else {				
+						$line.Value = ($virpil.jsNumber + '_' + $line.Value)
+					}
 			}
 			$_
 		}
 	}		
 	#for debug
-	#$mapping | Out-GridView	
+	#$mapping | Out-GridView
 	#If overwrite, delete source file	
 	if (Test-Path $fichierExportXML) {
 		Remove-Item $fichierExportXML
