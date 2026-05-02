@@ -347,7 +347,7 @@ $btnOK.Add_Click({
 		}
 	}		
 	#for debug
-	$mapping | Out-GridView
+	#$mapping | Out-GridView
 	#If overwrite, delete source file	
 	if (Test-Path $fichierExportXML) {
 		Remove-Item $fichierExportXML
