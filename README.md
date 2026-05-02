@@ -1,5 +1,6 @@
-# Star-citizen-Virpil-configurator-input-translation
-a Powershell Script that will convert starcitizen input xml file created with old virpil mapping from VPC Software to new mapping set by VPC configurator Alpha.
+# Virpil-configurator-input-translation script
+a Powershell Script that will convert input xml file created with old virpil mapping from VPC Software to new mapping set by VPC configurator Alpha.
+Game support : Star Citizen, X4 Foundation
 
 	The script support following configuration (default Virpil buttons assignement)
 			Virpil Constellation Alpha prime joystick
@@ -15,8 +16,10 @@ a Powershell Script that will convert starcitizen input xml file created with ol
 	Note : Control Panel 3 (standalone) has no buttons assignement change between VPC Configuration and Vpc control configurator.
 
 ## Configuration :   
- 
-You will need to adapt Joystick instance value to your specific input configuration.
+
+You will need to define Joystick instance / Order value to your specific input configuration.
+example: for star citizen
+
  <options type="joystick" instance="1" Product="VPC Stick WarBRD  {00D53344-0000-0000-0000-504944564944}"></options>
  <options type="joystick" instance="2" Product="VPC Throttle MT-50CM2  {01933344-0000-0000-0000-504944564944}"></options>
 
