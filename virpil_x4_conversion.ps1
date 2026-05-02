@@ -23,7 +23,7 @@
 	or powershell.exe -ep bypass -file "x:\xxx\virpil_sc_conversion.ps1" from a cmd terminal.
 
         Launch the script
-    1.0     01.05.2025  First version
+    1.0     01.05.2026  First version
 .LINK
     https://github.com/Choum28/
  #>

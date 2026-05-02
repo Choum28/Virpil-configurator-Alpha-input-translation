@@ -23,12 +23,12 @@
 	or powershell.exe -ep bypass -file "x:\xxx\virpil_sc_conversion.ps1" from a cmd terminal.
 
         Launch the script
-	1.3		01.01.2025	Change to support new csv version/path. 
-	1.2		21.02.2025	Add Gui, add more device support
-    1.1     20.02.2025  Add choice selection
+	1.3		01.01.2026	Change to support new csv version/path. 
+	1.2		21.02.2026	Add Gui, add more device support
+    1.1     20.02.2026  Add choice selection
 						Add user selection for js devic number use by the device in star citizen
 						Add support for MongoosT-50CM2/3 Throttle
-    1.0     18.02.2025  First version
+    1.0     18.02.2026  First version
 .LINK
     https://github.com/Choum28/
  #>
@@ -331,17 +331,21 @@ $btnOK.Add_Click({
 			"Control Panel 1" { $csv = ".\Mapping\CP1.csv" }
 			"Control Panel 2" { $csv = ".\Mapping\CP2.csv" }
 		}
-		$device+=add-Device -csv $csv -jsNumber $jsnumber -Type $Type
+		$device+=add-Device -csv $csv -jsNumber $jsnumber
 	}
 	foreach ($virpil in $device) {
 		$mapping += Import-Csv -Path $virpil.csv | ForEach-Object {
-			foreach ($line in $_.PSObject.Properties) {
-					# test si la valeur du csv est un chiffre (bouton) ou un axe.
-					if ($line.Value -match '^\d+$'){
-						$line.Value = ($virpil.jsNumber + '_button' + $line.Value)
-					} else {				
-						$line.Value = ($virpil.jsNumber + '_' + $line.Value)
-					}
+			# OLD
+			if ($_.OLD -match '^\d+$') {
+				$_.OLD = ($virpil.jsNumber + '_button' + $_.OLD)
+			} else {
+				$_.OLD = ($virpil.jsNumber + '_' + $_.OLD)
+			}
+			# NEW
+			if ($_.NEW -match '^\d+$') {
+				$_.NEW = ($virpil.jsNumber + '_button' + $_.NEW)
+			} else {
+				$_.NEW = ($virpil.jsNumber + '_' + $_.NEW)
 			}
 			$_
 		}
