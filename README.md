@@ -1,6 +1,6 @@
 # Virpil-configurator-input-translation script
 a Powershell Script that will convert input xml file created with old virpil mapping from VPC Software to new mapping set by VPC configurator Alpha.
-Game support : Star Citizen, X4 Foundation
+Game support : Star Citizen, X4 Foundation, Edge of Chaos: Independence War 2
 
 	The script support following configuration (default Virpil buttons assignement)
 			Virpil Constellation Alpha prime joystick
